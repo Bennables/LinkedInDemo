@@ -1,0 +1,18 @@
+/*
+
+
+Some outdated functions from before we got credentials
+through JWT
+
+
+This has been removed for JWT credentials
+
+
+
+
+
+
+
+
+
+*/

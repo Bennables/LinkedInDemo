@@ -1,0 +1,22 @@
+/*
+
+
+
+
+
+
+
+
+Crud Endpoints for email footers
+
+
+
+
+
+
+
+
+
+
+
+*/

@@ -1,0 +1,133 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Company {
+  id Int @id @default(autoincrement())
+  name String @unique
+  
+  users User[]
+  department Department[]
+
+  body Body[]
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  
+  first_name String
+  middle_name String?
+  last_name String? //!revert to not required in prod
+
+  username String @unique
+  password String
+
+
+  prof_pic_id Int @default(1)
+  // prof_pic String? @db.Text // this is supposed to be a file path. Will figure out later
+
+  prof_pic AccountImages? @relation(fields: [prof_pic_id], references: [id])
+
+  companyId Int
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  admin Boolean @default(false)
+  
+  hire Hires? @relation("BaseModel")
+  manager Hires[] @relation("Manager")
+  coordinator Hires[] @relation("Coordinator")
+
+  time LastUpdate[] @relation("updatetime")
+}
+
+model Hires{
+  id Int @id @unique
+
+  start_date DateTime
+  email String @unique
+  phone String @unique
+  title String
+
+  manager_id Int
+  location_id Int 
+  coordinator_id Int
+  department_id Int
+
+  user User @relation("BaseModel", fields: [id], references: [id], onDelete: Cascade)
+  coordinator User @relation("Coordinator", fields: [coordinator_id], references: [id])
+  manager User @relation("Manager", fields: [manager_id], references: [id])
+  location Location @relation(fields: [location_id], references: [id])
+  department Department @relation(fields: [department_id], references: [id])
+
+  hire HireStatus[]
+}
+
+model Location {
+  id Int @id @default(autoincrement())
+  street_address String?
+  city String?
+  state String?
+  zip_code String?
+  phone String?
+  name String
+
+  hires Hires[]
+}
+
+model Department{
+  id Int @id @default(autoincrement())
+  name String
+  companyId Int
+
+  company Company @relation(fields: [companyId], references: [id])
+
+  hires Hires[]
+}
+
+model HireStatus{
+  id Int @id @unique
+  lastupdatedby Int
+  task_id Int
+  time DateTime
+
+  hires Hires @relation(fields: [id], references: [id], onDelete: Cascade)
+  // lastupdate Last_update @relation("Hirestatu", fields:[lastupdatedby], references:[id])
+}
+
+model LastUpdate{
+  id Int @id @default(autoincrement())
+  who Int
+  time DateTime
+  desc String
+
+  user User @relation("updatetime", fields: [who], references: [id], onDelete: Cascade)
+  // hirestatus Hirestatus @relation("HireStatu")
+
+}
+
+model AccountImages{
+  id Int @id @default(autoincrement())
+  imgpath String 
+  user User[]
+}
+
+model Body {
+  id Int @id @default(autoincrement())
+  name String
+  week_num Int?
+  text Json
+  companyId Int
+
+  company Company? @relation(fields: [companyId], references: [id])
+}
+
