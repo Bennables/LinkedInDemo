@@ -8,6 +8,7 @@ import UserPage from './pages/UserPage';
 import LexicalEdit from './pages/EmailBody';
 import EmailBodiesList from './pages/EmailBodiesList';
 import HirePage from './pages/HirePage';
+import DepartmentTable from './pages/ViewDepartments';
 
 
 const router = createBrowserRouter([
@@ -17,7 +18,8 @@ const router = createBrowserRouter([
   {path:"/hires/hire/:id", element: <HirePage/>},
   {path:"/email-bodies", element: <EmailBodiesList/>},
   {path:"/email-bodies/:id", element: <LexicalEdit/>},
-  {path:"/email-bodies/new", element: <LexicalEdit/>}
+  {path:"/email-bodies/new", element: <LexicalEdit/>},
+  {path:"/departments", element: <DepartmentTable/>}
 ])
 
 createRoot(document.getElementById('root')!).render(
