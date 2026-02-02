@@ -9,6 +9,14 @@ import LexicalEdit from './pages/EmailBody';
 import EmailBodiesList from './pages/EmailBodiesList';
 import HirePage from './pages/HirePage';
 import DepartmentTable from './pages/ViewDepartments';
+import CreateDepartment from './pages/CreateDepartment';
+import EditDepartment from './pages/EditDepartment';
+import Login from './pages/Login';
+import Stuff from './pages/TestRefresh';
+import TaskTable from './pages/ViewTask';
+import EditTask from './pages/EditTask';
+import CreateTask from './pages/CreateTask';
+import TaskStepsPage from './pages/TaskStepsPage';
 
 
 const router = createBrowserRouter([
@@ -19,7 +27,17 @@ const router = createBrowserRouter([
   {path:"/email-bodies", element: <EmailBodiesList/>},
   {path:"/email-bodies/:id", element: <LexicalEdit/>},
   {path:"/email-bodies/new", element: <LexicalEdit/>},
-  {path:"/departments", element: <DepartmentTable/>}
+  {path:"/departments", element: <DepartmentTable/>},
+  {path:"/departments/:deptname", element: <EditDepartment/>},
+
+  {path:"/departments/new", element: <CreateDepartment/>},
+
+  {path:"/login", element: <Login/>},
+  {path:"/refresh", element: <Stuff/>},
+  {path:"/tasks", element: <TaskTable/>},
+  {path:"/tasks/new", element: <CreateTask/>},
+  {path:"/tasks/:taskId", element: <TaskStepsPage/>},
+  {path:"/tasks/edit/:taskname", element: <EditTask/>},
 ])
 
 createRoot(document.getElementById('root')!).render(
