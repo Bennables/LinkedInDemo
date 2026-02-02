@@ -1,6 +1,6 @@
  import React, { useMemo, useState } from "react";
  import '../index.css'
- import { HireRow } from "./components/TableHire";
+ import { HireRow } from "../components/TableHire";
  import { useEffect } from "react";
  import axios from "axios";
 
