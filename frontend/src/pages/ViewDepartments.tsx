@@ -1,6 +1,6 @@
  import React, { useMemo, useState } from "react";
- import './index.css'
- import { DepartmentRow } from "../DepartmentRow";
+ import '../index.css'
+ import { DepartmentRow } from "../pages/components/DepartmentRow";
  import { useEffect } from "react";
  import axios from "axios";
 
@@ -18,7 +18,7 @@ export default function DepartmentTable({
   useEffect(()=>{
     
     const getDepartments = async () => {
-      const res = await axios.get(`${url}/dept`);
+      const res = await axios.get(`${url}/api/dept`);
       console.log(res.data);
       setData(res.data.data)
       console.log(res.data.data);
@@ -29,7 +29,7 @@ export default function DepartmentTable({
   const filteredData = useMemo(() => {
     if (!query.trim()) return data;
     return data.filter(department =>
-      department.name.toLowerCase().includes(query.toLowerCase())
+      department.name?.toLowerCase().includes(query.toLowerCase())
     );
   }, [query, data])
   
@@ -73,6 +73,17 @@ export default function DepartmentTable({
 
                   <DepartmentRow department={entry}/>
                 ))}
+                <tr
+      className={`hover:bg-gray-100   ${onclick ? "cursor-pointer" : ""}`}
+    
+    >  
+  <a href={`/departments/new`}>
+      <td className="px-4 py-3 flex justify-center text-sm border-2 rounded-xl border-white hover:border-gray-400 font-medium text-slate-900">
+        
+        <img src="/icons/plus.svg"/>
+      </td>
+    </a>
+    </tr>
                   
               </tbody>
             </table>
